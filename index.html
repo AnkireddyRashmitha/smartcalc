@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartCalc — Free Online Calculators for Everyday Decisions</title>
+<meta name="description" content="Free online calculators for EMI, BMI, calories, age, percentages, SIP, loans and more. Fast, accurate and mobile-friendly.">
+<style>
+/* ============================================================
+   SmartCalc - style.css
+   Font: Manrope (display) + DM Sans (body)
+   Palette: Navy accent, sky-blue primary, soft grays
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+  --bg:          #f4f6fb;
+  --surface:     #ffffff;
+  --surface-2:   #f0f3fa;
+  --border:      #e2e8f4;
+  --primary:     #2563eb;
+  --primary-dk:  #1d4ed8;
+  --primary-lt:  #dbeafe;
+  --accent:      #0ea5e9;
+  --success:     #10b981;
+  --warning:     #f59e0b;
+  --danger:      #ef4444;
+  --text:        #0f172a;
+  --text-2:      #475569;
+  --text-3:      #94a3b8;
+  --shadow-sm:   0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow:      0 4px 16px rgba(0,0,0,.08);
+  --shadow-lg:   0 12px 40px rgba(0,0,0,.12);
+  --radius-sm:   8px;
+  --radius:      14px;
+  --radius-lg:   20px;
+  --nav-h:       68px;
+  --font-display:'Manrope', sans-serif;
+  --font-body:   'DM Sans', sans-serif;
+  --transition:  .2s cubic-bezier(.4,0,.2,1);
+}
+
+[data-theme="dark"] {
+  --bg:         #0d1117;
+  --surface:    #161b27;
+  --surface-2:  #1e2535;
+  --border:     #2d3748;
+  --primary:    #3b82f6;
+  --primary-dk: #2563eb;
+  --primary-lt: #1e3a5f;
+  --text:       #f1f5f9;
+  --text-2:     #94a3b8;
+  --text-3:     #4a5568;
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.3);
+  --shadow:     0 4px 16px rgba(0,0,0,.4);
+  --shadow-lg:  0 12px 40px rgba(0,0,0,.5);
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  transition: background var(--transition), color var(--transition);
+  min-height: 100vh;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+ul { list-style: none; }
+button, input, select { font-family: inherit; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ── Utility ── */
+.container { width: 100%; max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -.02em;
+}
+.section-sub { color: var(--text-2); font-size: .95rem; margin-top: 6px; }
+
+/* ── Navbar ── */
+.navbar {
+  position: sticky; top: 0; z-index: 900;
+  height: var(--nav-h);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-sm);
+  transition: background var(--transition), box-shadow var(--transition);
+}
+.navbar .container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 800; font-size: 1.3rem;
+  letter-spacing: -.03em; color: var(--text);
+  flex-shrink: 0;
+}
+.logo-icon {
+  width: 36px; height: 36px;
+  background: var(--primary);
+  border-radius: 10px;
+  display: grid; place-items: center;
+  color: #fff; font-size: 1.1rem;
+}
+.logo span { color: var(--primary); }
+
+.nav-search {
+  flex: 1; max-width: 380px;
+  position: relative;
+}
+.nav-search input {
+  width: 100%;
+  padding: 9px 16px 9px 40px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: .9rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.nav-search input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+}
+.nav-search .search-icon {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  color: var(--text-3); font-size: .9rem; pointer-events: none;
+}
+
+.nav-links {
+  display: flex; align-items: center; gap: 4px; margin-left: auto;
+}
+.nav-links a {
+  padding: 7px 13px;
+  border-radius: 8px;
+  font-size: .88rem; font-weight: 500;
+  color: var(--text-2);
+  transition: background var(--transition), color var(--transition);
+}
+.nav-links a:hover { background: var(--surface-2); color: var(--text); }
+
+.theme-toggle {
+  width: 38px; height: 38px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-2);
+  cursor: pointer;
+  display: grid; place-items: center;
+  font-size: 1rem; color: var(--text-2);
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+.theme-toggle:hover { background: var(--primary-lt); color: var(--primary); transform: rotate(20deg); }
+
+.hamburger {
+  display: none;
+  width: 38px; height: 38px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-2);
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.hamburger span {
+  display: block; width: 18px; height: 2px;
+  background: var(--text-2);
+  border-radius: 2px;
+  transition: all .3s;
+}
+
+/* Mobile nav */
+.mobile-menu {
+  display: none;
+  position: fixed; inset: var(--nav-h) 0 0 0;
+  background: var(--surface);
+  padding: 20px;
+  z-index: 800;
+  flex-direction: column; gap: 8px;
+  border-top: 1px solid var(--border);
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 1rem; font-weight: 500; color: var(--text-2);
+}
+.mobile-menu a:hover { background: var(--surface-2); color: var(--text); }
+
+/* Search dropdown */
+#search-results {
+  position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  z-index: 999;
+  overflow: hidden;
+  display: none;
+}
+#search-results.show { display: block; }
+.search-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 16px;
+  cursor: pointer;
+  transition: background var(--transition);
+  text-decoration: none; color: var(--text);
+}
+.search-item:hover { background: var(--surface-2); }
+.search-item-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: grid; place-items: center;
+  font-size: .9rem; flex-shrink: 0;
+}
+.search-item-text { font-size: .9rem; font-weight: 500; }
+.search-item-cat { font-size: .75rem; color: var(--text-3); }
+.search-empty { padding: 20px; text-align: center; color: var(--text-3); font-size: .9rem; }
+
+/* ── Hero ── */
+.hero {
+  padding: 80px 0 60px;
+  text-align: center;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 60%, rgba(37,99,235,.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 80% 30%, rgba(14,165,233,.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--primary-lt);
+  color: var(--primary);
+  padding: 5px 14px; border-radius: 100px;
+  font-size: .8rem; font-weight: 600;
+  margin-bottom: 20px;
+  letter-spacing: .02em;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -.04em;
+  line-height: 1.15;
+  max-width: 720px;
+  margin: 0 auto 16px;
+}
+.hero h1 .accent { color: var(--primary); }
+.hero-sub {
+  font-size: clamp(.95rem, 2vw, 1.1rem);
+  color: var(--text-2);
+  max-width: 500px;
+  margin: 0 auto 32px;
+  font-weight: 300;
+}
+
+/* Hero search */
+.hero-search {
+  max-width: 540px; margin: 0 auto 28px;
+  position: relative;
+}
+.hero-search input {
+  width: 100%;
+  padding: 16px 24px 16px 52px;
+  border: 2px solid var(--border);
+  border-radius: 100px;
+  font-size: 1rem;
+  background: var(--surface-2);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.hero-search input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(37,99,235,.12), var(--shadow);
+}
+.hero-search .h-icon {
+  position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
+  color: var(--text-3); font-size: 1.1rem;
+}
+
+/* Tags */
+.hero-tags { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: .82rem; font-weight: 600;
+  background: #ecfdf5; color: #059669;
+  border: 1px solid #a7f3d0;
+}
+.tag svg { width: 12px; height: 12px; }
+
+/* ── Section ── */
+.section { padding: 64px 0; }
+.section-header { margin-bottom: 36px; }
+.section-header .row { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.view-all {
+  font-size: .88rem; font-weight: 600; color: var(--primary);
+  display: flex; align-items: center; gap: 5px;
+  transition: gap var(--transition);
+}
+.view-all:hover { gap: 9px; }
+
+/* ── Category Grid ── */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+}
+.cat-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  cursor: pointer;
+}
+.cat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary);
+}
+.cat-icon {
+  width: 46px; height: 46px;
+  border-radius: 12px;
+  display: grid; place-items: center;
+  font-size: 1.3rem;
+  margin-bottom: 14px;
+}
+.cat-card h3 {
+  font-family: var(--font-display);
+  font-size: 1rem; font-weight: 700;
+  margin-bottom: 8px; letter-spacing: -.01em;
+}
+.cat-links { display: flex; flex-direction: column; gap: 3px; }
+.cat-links a {
+  font-size: .83rem; color: var(--text-2);
+  padding: 2px 0;
+  transition: color var(--transition);
+  display: flex; align-items: center; gap: 5px;
+}
+.cat-links a::before {
+  content: '›';
+  color: var(--text-3);
+  font-size: 1rem;
+  transition: transform var(--transition), color var(--transition);
+}
+.cat-links a:hover { color: var(--primary); }
+.cat-links a:hover::before { color: var(--primary); transform: translateX(2px); }
+
+/* Category colors */
+.c-fin  { background: #eff6ff; color: #2563eb; }
+.c-hlth { background: #f0fdf4; color: #16a34a; }
+.c-math { background: #fefce8; color: #ca8a04; }
+.c-date { background: #fdf4ff; color: #9333ea; }
+.c-conv { background: #fff7ed; color: #ea580c; }
+
+/* ── Popular Cards ── */
+.popular-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+.calc-card {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 26px 24px;
+  display: flex; flex-direction: column; gap: 14px;
+  transition: transform var(--transition), box-shadow var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.calc-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.calc-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+.calc-card:hover::before { opacity: 1; }
+
+.card-header { display: flex; align-items: flex-start; justify-content: space-between; }
+.card-icon {
+  width: 48px; height: 48px;
+  border-radius: 13px;
+  display: grid; place-items: center;
+  font-size: 1.4rem;
+}
+.badge-popular {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: #ecfdf5; color: #059669;
+  border: 1px solid #a7f3d0;
+  padding: 3px 10px; border-radius: 100px;
+  font-size: .73rem; font-weight: 700;
+  letter-spacing: .03em;
+}
+.calc-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em;
+}
+.calc-card p { font-size: .88rem; color: var(--text-2); line-height: 1.5; flex: 1; }
+.btn-use {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px 20px;
+  background: var(--primary);
+  color: #fff;
+  border: none; border-radius: 10px;
+  font-size: .88rem; font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.btn-use:hover {
+  background: var(--primary-dk);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(37,99,235,.35);
+}
+
+/* ── Stats Bar ── */
+.stats-bar {
+  background: var(--primary);
+  padding: 36px 0;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 24px;
+  text-align: center;
+}
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 2rem; font-weight: 800;
+  color: #fff; letter-spacing: -.03em;
+}
+.stat-label { font-size: .85rem; color: rgba(255,255,255,.75); margin-top: 4px; }
+
+/* ── Footer ── */
+.footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 56px 0 0;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--border);
+}
+.footer-brand p { font-size: .9rem; color: var(--text-2); margin: 14px 0 20px; line-height: 1.7; }
+.footer-col h4 {
+  font-family: var(--font-display);
+  font-size: .88rem; font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase;
+  color: var(--text-3); margin-bottom: 16px;
+}
+.footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+.footer-col ul a {
+  font-size: .88rem; color: var(--text-2);
+  transition: color var(--transition);
+}
+.footer-col ul a:hover { color: var(--primary); }
+.footer-bottom {
+  padding: 20px 0;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  font-size: .83rem; color: var(--text-3);
+}
+.footer-bottom a { color: var(--text-3); transition: color var(--transition); }
+.footer-bottom a:hover { color: var(--primary); }
+
+/* ── Calculator Pages ── */
+.calc-page { padding: 48px 0 80px; }
+.calc-page .container { max-width: 900px; }
+
+.breadcrumb {
+  display: flex; align-items: center; gap: 8px;
+  font-size: .85rem; color: var(--text-3);
+  margin-bottom: 28px;
+}
+.breadcrumb a { color: var(--primary); }
+.breadcrumb span { color: var(--text-3); }
+
+.calc-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 680px) { .calc-wrapper { grid-template-columns: 1fr; } }
+
+.calc-panel {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px 26px;
+  box-shadow: var(--shadow);
+}
+.calc-panel h2 {
+  font-family: var(--font-display);
+  font-size: 1.2rem; font-weight: 800;
+  letter-spacing: -.02em;
+  margin-bottom: 22px;
+  padding-bottom: 16px;
+  border-bottom: 1.5px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block;
+  font-size: .85rem; font-weight: 600; color: var(--text-2);
+  margin-bottom: 7px;
+}
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: .95rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+}
+
+.radio-group { display: flex; gap: 12px; }
+.radio-option {
+  flex: 1;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 10px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-size: .9rem; font-weight: 500;
+}
+.radio-option input { display: none; }
+.radio-option.selected {
+  border-color: var(--primary);
+  background: var(--primary-lt);
+  color: var(--primary);
+}
+
+.btn-group { display: flex; gap: 10px; margin-top: 22px; }
+.btn-calc {
+  flex: 1; padding: 13px;
+  background: var(--primary); color: #fff;
+  border: none; border-radius: 11px;
+  font-size: .95rem; font-weight: 700;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+.btn-calc:hover {
+  background: var(--primary-dk);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(37,99,235,.35);
+}
+.btn-reset {
+  padding: 13px 18px;
+  background: var(--surface-2);
+  color: var(--text-2);
+  border: 1.5px solid var(--border);
+  border-radius: 11px;
+  font-size: .95rem; font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.btn-reset:hover { background: var(--border); color: var(--text); }
+
+/* Result panel */
+.result-panel {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.result-empty {
+  padding: 48px 28px;
+  text-align: center;
+  color: var(--text-3);
+}
+.result-empty .r-icon { font-size: 3rem; margin-bottom: 12px; }
+.result-empty p { font-size: .9rem; }
+
+.result-content { display: none; }
+.result-content.show { display: block; }
+
+.result-header {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  padding: 28px;
+  color: #fff;
+  text-align: center;
+}
+.result-label { font-size: .85rem; opacity: .85; margin-bottom: 6px; }
+.result-value {
+  font-family: var(--font-display);
+  font-size: 2.4rem; font-weight: 800;
+  letter-spacing: -.04em;
+}
+.result-sub { font-size: .85rem; opacity: .8; margin-top: 6px; }
+
+.result-items { padding: 20px 24px; display: flex; flex-direction: column; gap: 0; }
+.result-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: .9rem;
+}
+.result-item:last-child { border-bottom: none; }
+.result-item-label { color: var(--text-2); }
+.result-item-val { font-weight: 700; font-family: var(--font-display); color: var(--text); }
+
+/* BMI specific */
+.bmi-gauge {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.bmi-bar {
+  height: 12px; border-radius: 100px; overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-bottom: 10px;
+}
+.bmi-seg { height: 100%; }
+.bmi-seg.under { background: #60a5fa; }
+.bmi-seg.normal { background: #34d399; }
+.bmi-seg.over   { background: #fbbf24; }
+.bmi-seg.obese  { background: #f87171; }
+.bmi-indicator-row { display: flex; justify-content: space-between; font-size: .72rem; color: var(--text-3); }
+
+.bmi-category {
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  margin-top: 12px;
+  font-weight: 700;
+  font-size: .95rem;
+}
+.bmi-table { width: 100%; border-collapse: collapse; font-size: .85rem; margin: 8px 0; }
+.bmi-table th {
+  text-align: left; padding: 8px 10px;
+  background: var(--surface-2);
+  font-weight: 600; color: var(--text-2);
+  font-size: .78rem; letter-spacing: .03em; text-transform: uppercase;
+}
+.bmi-table td { padding: 9px 10px; border-bottom: 1px solid var(--border); }
+.bmi-table tr:last-child td { border-bottom: none; }
+
+/* Explanation box */
+.explain-box {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px 26px;
+  margin-top: 24px;
+  box-shadow: var(--shadow-sm);
+}
+.explain-box h3 {
+  font-family: var(--font-display);
+  font-size: 1rem; font-weight: 700;
+  margin-bottom: 12px; letter-spacing: -.01em;
+}
+.explain-box p, .explain-box li { font-size: .9rem; color: var(--text-2); line-height: 1.7; }
+.explain-box ul { padding-left: 18px; list-style: disc; margin-top: 10px; }
+.explain-box ul li { margin-bottom: 5px; }
+.formula-box {
+  background: var(--surface-2);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-family: 'Courier New', monospace;
+  font-size: .88rem; color: var(--primary);
+  margin: 14px 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 700px) {
+  .nav-links { display: none; }
+  .nav-search { display: none; }
+  .hamburger { display: flex; margin-left: auto; }
+  .hero { padding: 50px 0 40px; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .categories-grid { grid-template-columns: 1fr 1fr; }
+  .popular-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 420px) {
+  .categories-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate { animation: fadeUp .5s ease both; }
+.delay-1 { animation-delay: .1s; }
+.delay-2 { animation-delay: .2s; }
+.delay-3 { animation-delay: .3s; }
+.delay-4 { animation-delay: .4s; }
+
+/* Result bounce */
+@keyframes resultIn {
+  0%   { opacity: 0; transform: scale(.94); }
+  70%  { transform: scale(1.02); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.result-content.show { animation: resultIn .35s ease both; }
+
+/* Pie chart for EMI */
+.pie-wrap { padding: 20px 24px; border-bottom: 1px solid var(--border); }
+.pie-wrap h4 { font-size: .85rem; font-weight: 600; color: var(--text-2); margin-bottom: 14px; }
+.pie-legend { display: flex; gap: 16px; margin-top: 12px; }
+.pie-dot { width: 10px; height: 10px; border-radius: 3px; margin-top: 4px; flex-shrink: 0; }
+.pie-legend-item { display: flex; gap: 8px; font-size: .82rem; color: var(--text-2); }
+svg#emi-pie { display: block; margin: 0 auto; }
+
+/* ── Range Slider ── */
+.range-wrap { position: relative; }
+.range-val {
+  display: inline-block;
+  background: var(--primary);
+  color: #fff;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: .8rem; font-weight: 700;
+  margin-bottom: 6px;
+}
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%; height: 6px;
+  border-radius: 3px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 2px 6px rgba(37,99,235,.4);
+  transition: transform .15s;
+}
+input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.2); }
+input[type=range]::-moz-range-thumb {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: none;
+}
+
+/* ── Tabs ── */
+.tabs {
+  display: flex; gap: 4px;
+  background: var(--surface-2);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 22px;
+}
+.tab-btn {
+  flex: 1; padding: 9px 12px;
+  border: none; border-radius: 9px;
+  background: transparent;
+  color: var(--text-2);
+  font-size: .85rem; font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.tab-btn.active {
+  background: var(--surface);
+  color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── Amortization Table ── */
+.amort-wrap {
+  margin-top: 24px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.amort-wrap h3 {
+  font-family: var(--font-display);
+  font-size: 1rem; font-weight: 700;
+  padding: 18px 20px;
+  border-bottom: 1.5px solid var(--border);
+  display: flex; align-items: center; gap: 8px;
+}
+.amort-table-wrap { overflow-x: auto; max-height: 340px; overflow-y: auto; }
+.amort-table { width: 100%; border-collapse: collapse; font-size: .83rem; }
+.amort-table thead th {
+  position: sticky; top: 0;
+  background: var(--surface-2);
+  padding: 10px 14px;
+  text-align: right; font-weight: 600; color: var(--text-2);
+  font-size: .78rem; letter-spacing: .03em; text-transform: uppercase;
+  border-bottom: 1.5px solid var(--border);
+  white-space: nowrap;
+}
+.amort-table thead th:first-child { text-align: center; }
+.amort-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  text-align: right; color: var(--text);
+}
+.amort-table td:first-child { text-align: center; color: var(--text-3); font-weight: 600; }
+.amort-table tbody tr:last-child td { border-bottom: none; }
+.amort-table tbody tr:hover td { background: var(--surface-2); }
+.td-interest { color: var(--warning) !important; font-weight: 600; }
+.td-principal { color: var(--primary) !important; font-weight: 600; }
+
+/* ── SIP Chart ── */
+.sip-chart-wrap {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.sip-chart-wrap h4 { font-size: .85rem; font-weight: 600; color: var(--text-2); margin-bottom: 14px; }
+.sip-bars { display: flex; align-items: flex-end; gap: 6px; height: 100px; }
+.sip-bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.sip-bar { width: 100%; border-radius: 4px 4px 0 0; transition: height .5s ease; min-width: 8px; }
+.sip-bar-label { font-size: .65rem; color: var(--text-3); white-space: nowrap; }
+.sip-legend { display: flex; gap: 16px; margin-top: 12px; }
+
+/* ── Scientific Calc ── */
+.sci-display {
+  background: var(--surface-2);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+  text-align: right;
+}
+.sci-expr { font-size: .8rem; color: var(--text-3); min-height: 18px; margin-bottom: 4px; font-family: 'Courier New', monospace; }
+.sci-main {
+  font-family: var(--font-display);
+  font-size: 2rem; font-weight: 800;
+  letter-spacing: -.04em; color: var(--text);
+  word-break: break-all;
+}
+.sci-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+}
+.sci-btn {
+  padding: 13px 6px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: .88rem; font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: var(--font-body);
+}
+.sci-btn:hover { background: var(--surface-2); transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.sci-btn.op   { background: var(--primary-lt); color: var(--primary); border-color: transparent; }
+.sci-btn.op:hover { background: var(--primary); color: #fff; }
+.sci-btn.fn   { background: var(--surface-2); color: var(--text-2); font-size: .78rem; }
+.sci-btn.fn:hover { background: var(--border); color: var(--text); }
+.sci-btn.eq   { background: var(--primary); color: #fff; border-color: transparent; }
+.sci-btn.eq:hover { background: var(--primary-dk); box-shadow: 0 4px 14px rgba(37,99,235,.35); }
+.sci-btn.clr  { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
+.sci-btn.clr:hover { background: #dc2626; color: #fff; }
+.sci-btn.num  { background: var(--surface); }
+.sci-btn.span2 { grid-column: span 2; }
+
+/* ── Progress Ring (BMI) ── */
+.bmi-ring-wrap {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.bmi-ring { position: relative; width: 140px; height: 140px; }
+.bmi-ring svg { transform: rotate(-90deg); }
+.bmi-ring-center {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.bmi-ring-val {
+  font-family: var(--font-display);
+  font-size: 1.8rem; font-weight: 800; letter-spacing: -.04em;
+}
+.bmi-ring-lbl { font-size: .72rem; color: var(--text-3); margin-top: 2px; }
+
+/* ── Calorie Macro Bars ── */
+.macro-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 12px;
+  padding: 16px 20px; border-top: 1px solid var(--border);
+}
+.macro-item { text-align: center; }
+.macro-name { font-size: .72rem; color: var(--text-3); text-transform: uppercase; letter-spacing: .04em; }
+.macro-val { font-family: var(--font-display); font-size: 1.1rem; font-weight: 800; margin: 4px 0; }
+.macro-bar-bg { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.macro-bar-fill { height: 100%; border-radius: 3px; }
+
+/* ── Age Timeline ── */
+.age-timeline {
+  padding: 16px 20px; border-top: 1px solid var(--border);
+}
+.age-timeline h4 { font-size: .82rem; font-weight: 700; color: var(--text-2); margin-bottom: 12px; }
+.timeline-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 8px 0; border-bottom: 1px dashed var(--border);
+  font-size: .85rem;
+}
+.timeline-item:last-child { border-bottom: none; }
+.timeline-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.timeline-label { color: var(--text-2); flex: 1; }
+.timeline-val { font-weight: 700; font-family: var(--font-display); color: var(--text); }
+
+/* ── Tooltip ── */
+.tooltip-wrap { position: relative; display: inline-flex; }
+.tooltip-icon {
+  width: 16px; height: 16px;
+  border-radius: 50%; background: var(--border);
+  color: var(--text-3); font-size: .7rem; font-weight: 700;
+  display: inline-grid; place-items: center;
+  cursor: help; margin-left: 6px; vertical-align: middle;
+}
+.tooltip-text {
+  display: none;
+  position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+  background: var(--text); color: #fff;
+  padding: 6px 10px; border-radius: 8px;
+  font-size: .75rem; white-space: nowrap; z-index: 100;
+}
+.tooltip-wrap:hover .tooltip-text { display: block; }
+
+/* ── Comparison Table (BMI page) ── */
+.compare-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.compare-label { font-size: .82rem; color: var(--text-2); width: 90px; flex-shrink: 0; }
+.compare-bar-bg { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.compare-bar-fill { height: 100%; border-radius: 4px; transition: width .6s ease; }
+.compare-val { font-size: .82rem; font-weight: 700; width: 40px; text-align: right; }
+
+/* ── What-if panel (EMI) ── */
+.whatif-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 16px 20px; }
+.whatif-card {
+  background: var(--surface-2);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+}
+.whatif-label { font-size: .75rem; color: var(--text-3); margin-bottom: 6px; }
+.whatif-val { font-family: var(--font-display); font-size: 1rem; font-weight: 800; color: var(--primary); }
+
+/* ── Loan Calculator specific ── */
+.loan-type-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 18px; }
+.loan-type-btn {
+  padding: 10px 8px; border: 1.5px solid var(--border);
+  border-radius: 10px; background: var(--surface-2);
+  color: var(--text-2); font-size: .82rem; font-weight: 600;
+  cursor: pointer; transition: all var(--transition); text-align: center;
+}
+.loan-type-btn.active { border-color: var(--primary); background: var(--primary-lt); color: var(--primary); }
+
+/* ── Quick links bar ── */
+.quick-links {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 28px;
+}
+.quick-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 100px;
+  font-size: .82rem; font-weight: 500; color: var(--text-2);
+  transition: all var(--transition); text-decoration: none;
+}
+.quick-link:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-lt); }
+.quick-link.active { border-color: var(--primary); color: var(--primary); background: var(--primary-lt); }
+
+
+</style>
+<style>
+.navbar.scrolled { box-shadow: var(--shadow); }
+.why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 20px; }
+.why-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 28px 24px; transition: transform var(--transition), box-shadow var(--transition); }
+.why-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.why-icon { font-size: 2rem; margin-bottom: 14px; display: block; }
+.why-card h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+.why-card p { font-size: .88rem; color: var(--text-2); line-height: 1.6; }
+.new-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 18px; }
+.new-badge { display: inline-flex; align-items: center; gap: 4px; background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; padding: 3px 10px; border-radius: 100px; font-size: .73rem; font-weight: 700; }
+.ticker { background: var(--primary); padding: 10px 0; overflow: hidden; white-space: nowrap; }
+.ticker-inner { display: inline-block; animation: ticker 30s linear infinite; }
+.ticker-item { display: inline-flex; align-items: center; gap: 8px; color: rgba(255,255,255,.9); font-size: .85rem; font-weight: 500; padding: 0 32px; }
+.ticker-dot { width: 5px; height: 5px; background: rgba(255,255,255,.5); border-radius: 50%; }
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.hero-floats { display: flex; justify-content: center; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
+.hero-float { background: var(--surface); border: 1.5px solid var(--border); border-radius: 14px; padding: 12px 18px; display: flex; align-items: center; gap: 10px; box-shadow: var(--shadow); font-size: .85rem; font-weight: 500; transition: transform var(--transition), box-shadow var(--transition); text-decoration: none; color: var(--text); }
+.hero-float:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.hero-float-icon { font-size: 1.2rem; }
+.hero-float-label { color: var(--text-2); font-size: .75rem; }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a class="logo" href="index.html"><div class="logo-icon">∑</div>Smart<span>Calc</span></a>
+    <div class="nav-search" style="position:relative">
+      <span class="search-icon">🔍</span>
+      <input id="nav-search-inp" type="text" placeholder="Search calculators…" autocomplete="off">
+      <div id="nav-results"></div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#categories">Categories</a></li>
+      <li><a href="#popular">Popular</a></li>
+      <li><a href="#new">New</a></li>
+      <li><a href="emi.html">Finance</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">🌙</button>
+    <button class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#categories" onclick="toggleMenu()">📦 Categories</a>
+  <a href="bmi.html">⚖️ BMI Calculator</a>
+  <a href="emi.html">💰 EMI Calculator</a>
+  <a href="sip.html">📈 SIP Calculator</a>
+  <a href="loan.html">🏦 Loan Calculator</a>
+  <a href="calorie.html">🥗 Calorie Calculator</a>
+  <a href="age.html">🎂 Age Calculator</a>
+  <a href="percentage.html">📊 Percentage Calculator</a>
+  <a href="scientific.html">🔬 Scientific Calculator</a>
+</div>
+
+<!-- Ticker -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">⚖️ BMI Calculator<span class="ticker-dot"></span></span>
+    <span class="ticker-item">💰 EMI Calculator<span class="ticker-dot"></span></span>
+    <span class="ticker-item">📈 SIP Calculator<span class="ticker-dot"></span></span>
+    <span class="ticker-item">🥗 Calorie Calculator<span class="ticker-dot"></span></span>
+    <span class="ticker-item">🎂 Age Calculator<span class="ticker-dot"></span></span>
+    <span class="ticker-item">📊 Percentage Calculator<span class="ticker-dot"></span></span>
+    <span class="ticker-item">🏦 Loan Calculator<span class="ticker-dot"></span></span>
+    <span class="ticker-item">🔬 Scientific Calculator<span class="ticker-dot"></span></span>
+    <span class="ticker-item">⚖️ BMI Calculator<span class="ticker-dot"></span></span>
+    <span class="ticker-item">💰 EMI Calculator<span class="ticker-dot"></span></span>
+    <span class="ticker-item">📈 SIP Calculator<span class="ticker-dot"></span></span>
+    <span class="ticker-item">🥗 Calorie Calculator<span class="ticker-dot"></span></span>
+    <span class="ticker-item">🎂 Age Calculator<span class="ticker-dot"></span></span>
+    <span class="ticker-item">📊 Percentage Calculator<span class="ticker-dot"></span></span>
+    <span class="ticker-item">🏦 Loan Calculator<span class="ticker-dot"></span></span>
+    <span class="ticker-item">🔬 Scientific Calculator<span class="ticker-dot"></span></span>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow animate">✦ Trusted by 1M+ users worldwide</div>
+    <h1 class="animate delay-1">Free online calculators<br>for <span class="accent">everyday decisions</span></h1>
+    <p class="hero-sub animate delay-2">Calculate EMI, BMI, calories, age, SIP returns, loans and more — instantly, accurately, for free.</p>
+    <div class="hero-search animate delay-3" style="position:relative">
+      <span class="h-icon">🔍</span>
+      <input id="hero-search" type="text" placeholder="Try 'BMI', 'EMI', 'SIP', 'loan'…" autocomplete="off">
+      <div id="hero-results"></div>
+    </div>
+    <div class="hero-tags animate delay-4">
+      <span class="tag">✓ 24 calculators</span>
+      <span class="tag">✓ 5 categories</span>
+      <span class="tag">✓ Free forever</span>
+      <span class="tag">✓ No sign-up</span>
+    </div>
+    <div class="hero-floats animate delay-4">
+      <a class="hero-float" href="emi.html"><span class="hero-float-icon">💰</span><div><div>EMI Calculator</div><div class="hero-float-label">Loan planning</div></div></a>
+      <a class="hero-float" href="bmi.html"><span class="hero-float-icon">⚖️</span><div><div>BMI Calculator</div><div class="hero-float-label">Health check</div></div></a>
+      <a class="hero-float" href="sip.html"><span class="hero-float-icon">📈</span><div><div>SIP Calculator</div><div class="hero-float-label">Investment returns</div></div></a>
+      <a class="hero-float" href="scientific.html"><span class="hero-float-icon">🔬</span><div><div>Scientific Calc</div><div class="hero-float-label">Advanced math</div></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- Categories -->
+<section class="section" id="categories">
+  <div class="container">
+    <div class="section-header"><div class="row"><div>
+      <h2 class="section-title">Browse by Category</h2>
+      <p class="section-sub">Find the right calculator for your needs</p>
+    </div></div></div>
+    <div class="categories-grid">
+      <div class="cat-card">
+        <div class="cat-icon c-fin">💰</div><h3>Financial</h3>
+        <div class="cat-links">
+          <a href="emi.html">EMI Calculator</a>
+          <a href="sip.html">SIP Calculator</a>
+          <a href="loan.html">Loan Calculator</a>
+          <a href="#">Compound Interest</a>
+        </div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon c-hlth">🏥</div><h3>Health</h3>
+        <div class="cat-links">
+          <a href="bmi.html">BMI Calculator</a>
+          <a href="calorie.html">Calorie Calculator</a>
+          <a href="#">Ideal Weight</a>
+          <a href="#">Pregnancy Calculator</a>
+        </div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon c-math">📐</div><h3>Math</h3>
+        <div class="cat-links">
+          <a href="percentage.html">Percentage Calculator</a>
+          <a href="scientific.html">Scientific Calculator</a>
+          <a href="#">Fraction Calculator</a>
+        </div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon c-date">📅</div><h3>Date & Time</h3>
+        <div class="cat-links">
+          <a href="age.html">Age Calculator</a>
+          <a href="#">Date Difference</a>
+          <a href="#">Countdown Timer</a>
+        </div>
+      </div>
+      <div class="cat-card">
+        <div class="cat-icon c-conv">🔄</div><h3>Converters</h3>
+        <div class="cat-links">
+          <a href="#">Length Converter</a>
+          <a href="#">Weight Converter</a>
+          <a href="#">Temperature Converter</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- New Calculators -->
+<section class="section" id="new" style="background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-header"><div class="row"><div>
+      <h2 class="section-title">🆕 New Calculators</h2>
+      <p class="section-sub">Just added — try our brand-new tools</p>
+    </div></div></div>
+    <div class="new-grid">
+      <div class="calc-card">
+        <div class="card-header"><div class="card-icon c-fin">📈</div><span class="new-badge">✦ New</span></div>
+        <h3>SIP Calculator</h3>
+        <p>Calculate returns on your Systematic Investment Plan with year-by-year growth chart and wealth projection.</p>
+        <a class="btn-use" href="sip.html">Use calculator →</a>
+      </div>
+      <div class="calc-card">
+        <div class="card-header"><div class="card-icon c-fin">🏦</div><span class="new-badge">✦ New</span></div>
+        <h3>Loan Calculator</h3>
+        <p>Compare home, car, and personal loan options with full amortization schedule and interest breakdown.</p>
+        <a class="btn-use" href="loan.html">Use calculator →</a>
+      </div>
+      <div class="calc-card">
+        <div class="card-header"><div class="card-icon c-math">🔬</div><span class="new-badge">✦ New</span></div>
+        <h3>Scientific Calculator</h3>
+        <p>Full-featured calculator with trigonometry, logarithms, powers, memory, and calculation history.</p>
+        <a class="btn-use" href="scientific.html">Use calculator →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Popular -->
+<section class="section" id="popular">
+  <div class="container">
+    <div class="section-header"><div class="row"><div>
+      <h2 class="section-title">Popular Calculators</h2>
+      <p class="section-sub">Most-used tools by our community</p>
+    </div></div></div>
+    <div class="popular-grid">
+      <div class="calc-card">
+        <div class="card-header"><div class="card-icon c-hlth">⚖️</div><span class="badge-popular">★ Popular</span></div>
+        <h3>BMI Calculator</h3>
+        <p>Visual BMI gauge with animated ring, category indicator, health tips, and BMI range table.</p>
+        <a class="btn-use" href="bmi.html">Use calculator →</a>
+      </div>
+      <div class="calc-card">
+        <div class="card-header"><div class="card-icon c-fin">💰</div><span class="badge-popular">★ Popular</span></div>
+        <h3>EMI Calculator</h3>
+        <p>Monthly loan installments with pie chart, what-if scenarios, and full year-by-year amortization table.</p>
+        <a class="btn-use" href="emi.html">Use calculator →</a>
+      </div>
+      <div class="calc-card">
+        <div class="card-header"><div class="card-icon c-hlth">🥗</div><span class="badge-popular">★ Popular</span></div>
+        <h3>Calorie Calculator</h3>
+        <p>Daily calorie needs with macro breakdown (protein, carbs, fat) and activity-based targets.</p>
+        <a class="btn-use" href="calorie.html">Use calculator →</a>
+      </div>
+      <div class="calc-card">
+        <div class="card-header"><div class="card-icon c-math">📊</div><span class="badge-popular">★ Popular</span></div>
+        <h3>Percentage Calculator</h3>
+        <p>Four modes: find %, what percent, percent change, and add/subtract percentage — all in one page.</p>
+        <a class="btn-use" href="percentage.html">Use calculator →</a>
+      </div>
+      <div class="calc-card">
+        <div class="card-header"><div class="card-icon c-date">🎂</div><span class="badge-popular">★ Popular</span></div>
+        <h3>Age Calculator</h3>
+        <p>Exact age in years, months, days, and weeks — plus a life timeline and birthday countdown.</p>
+        <a class="btn-use" href="age.html">Use calculator →</a>
+      </div>
+      <div class="calc-card">
+        <div class="card-header"><div class="card-icon c-fin">📈</div><span class="badge-popular">★ Popular</span></div>
+        <h3>SIP Calculator</h3>
+        <p>Plan your wealth with SIP returns calculator, year-by-year growth projection, and visual chart.</p>
+        <a class="btn-use" href="sip.html">Use calculator →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why SmartCalc -->
+<section class="section" style="background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-header" style="text-align:center;margin-bottom:40px">
+      <h2 class="section-title">Why SmartCalc?</h2>
+      <p class="section-sub">Simple, fast, and reliable — always free</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><span class="why-icon">⚡</span><h3>Instant Results</h3><p>Real-time calculations in your browser — no delays, no servers, no waiting.</p></div>
+      <div class="why-card"><span class="why-icon">📱</span><h3>Mobile Friendly</h3><p>Fully responsive design works perfectly on phones, tablets, and desktops.</p></div>
+      <div class="why-card"><span class="why-icon">🔒</span><h3>Privacy First</h3><p>All calculations happen locally. We never collect or store your personal data.</p></div>
+      <div class="why-card"><span class="why-icon">🆓</span><h3>Always Free</h3><p>No subscriptions, no sign-ups, no hidden fees. Free today and forever.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<div class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div><div class="stat-num">24+</div><div class="stat-label">Calculators</div></div>
+      <div><div class="stat-num">5</div><div class="stat-label">Categories</div></div>
+      <div><div class="stat-num">1M+</div><div class="stat-label">Calculations done</div></div>
+      <div><div class="stat-num">100%</div><div class="stat-label">Free forever</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="index.html"><div class="logo-icon">∑</div> Smart<span>Calc</span></a>
+        <p>Free, accurate, and fast online calculators for financial planning, health tracking, math, and everyday decisions.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Calculators</h4>
+        <ul>
+          <li><a href="bmi.html">BMI Calculator</a></li>
+          <li><a href="emi.html">EMI Calculator</a></li>
+          <li><a href="sip.html">SIP Calculator</a></li>
+          <li><a href="loan.html">Loan Calculator</a></li>
+          <li><a href="calorie.html">Calorie Calculator</a></li>
+          <li><a href="age.html">Age Calculator</a></li>
+          <li><a href="percentage.html">Percentage</a></li>
+          <li><a href="scientific.html">Scientific Calc</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul><li><a href="#">About Us</a></li><li><a href="#">Contact</a></li><li><a href="#">Blog</a></li></ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Use</a></li><li><a href="#">Disclaimer</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 SmartCalc. All rights reserved.</span>
+      <span>Made with ♥ for smart decisions</span>
+    </div>
+  </div>
+</footer>
+<script>
+/* SmartCalc - script.js */
+
+// ── Theme toggle ──────────────────────────────────────────
+const THEME_KEY = 'smartcalc-theme';
+const root = document.documentElement;
+
+function applyTheme(t) {
+  root.setAttribute('data-theme', t);
+  document.querySelectorAll('.theme-toggle').forEach(btn => {
+    btn.textContent = t === 'dark' ? '☀️' : '🌙';
+  });
+}
+
+function toggleTheme() {
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  localStorage.setItem(THEME_KEY, next);
+  applyTheme(next);
+}
+
+// Init theme
+applyTheme(localStorage.getItem(THEME_KEY) || 'light');
+
+// ── Mobile menu ───────────────────────────────────────────
+function toggleMenu() {
+  document.getElementById('mobile-menu')?.classList.toggle('open');
+}
+
+// ── All calculators data ──────────────────────────────────
+const ALL_CALCS = [
+    const ALL_CALCS = [
+  { name: "EMI Calculator", cat: "Financial", href: "emi.html" },
+
+  { name: "SIP Calculator", cat: "Financial", href: "sip.html" },
+
+  { name: "Loan Calculator", cat: "Financial", href: "loan.html" },
+];
+  { name: 'EMI Calculator',          cat: 'Financial',  icon: '💰', href: 'emi.html'        },
+  { name: 'SIP Calculator',          cat: 'Financial',  icon: '📈', href: 'sip.html'        },
+  { name: 'Loan Calculator',         cat: 'Financial',  icon: '🏦', href: 'loan.html'       },
+  { name: 'BMI Calculator',          cat: 'Health',     icon: '⚖️', href: 'bmi.html'        },
+  { name: 'Calorie Calculator',      cat: 'Health',     icon: '🥗', href: 'calorie.html'    },               },
+  { name: 'Percentage Calculator',   cat: 'Math',       icon: '📊', href: 'percentage.html' },
+  { name: 'Scientific Calculator',   cat: 'Math',       icon: '🔬', href: 'scientific.html' },               },
+  { name: 'Age Calculator',          cat: 'Date',       icon: '🎂', href: 'age.html'        },
+  
+];
+
+const CAT_COLORS = {
+  Financial:  'c-fin',
+  Health:     'c-hlth',
+  Math:       'c-math',
+  Date:       'c-date',
+  Converters: 'c-conv',
+};
+
+// ── Live search (hero + nav) ──────────────────────────────
+function initSearch(inputId, dropId) {
+  const inp = document.getElementById(inputId);
+  const drop = document.getElementById(dropId);
+  if (!inp || !drop) return;
+
+  inp.addEventListener('input', () => {
+    const q = inp.value.trim().toLowerCase();
+    if (!q) { drop.classList.remove('show'); return; }
+
+    const matches = ALL_CALCS.filter(c =>
+      c.name.toLowerCase().includes(q) || c.cat.toLowerCase().includes(q)
+    );
+
+    if (!matches.length) {
+      drop.innerHTML = '<div class="search-empty">No calculators found.</div>';
+    } else {
+      drop.innerHTML = matches.slice(0, 6).map(c => `
+        <a class="search-item" href="${c.href}">
+          <div class="search-item-icon ${CAT_COLORS[c.cat]}">${c.icon}</div>
+          <div>
+            <div class="search-item-text">${c.name}</div>
+            <div class="search-item-cat">${c.cat}</div>
+          </div>
+        </a>`).join('');
+    }
+    drop.classList.add('show');
+  });
+
+  document.addEventListener('click', e => {
+    if (!inp.contains(e.target) && !drop.contains(e.target))
+      drop.classList.remove('show');
+  });
+}
+
+// ── Intersection observer for animations ─────────────────
+function observeCards() {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.animationDelay = (i * 0.06) + 's';
+        e.target.classList.add('animate');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.calc-card, .cat-card').forEach(el => io.observe(el));
+}
+
+// ── BMI Calculator ────────────────────────────────────────
+function calcBMI() {
+  const w = parseFloat(document.getElementById('bmi-weight')?.value);
+  const hCm = parseFloat(document.getElementById('bmi-height')?.value);
+  if (!w || !hCm || w <= 0 || hCm <= 0) { alert('Please enter valid weight and height.'); return; }
+
+  const hM = hCm / 100;
+  const bmi = (w / (hM * hM)).toFixed(1);
+
+  let cat, color, bg;
+  if (bmi < 18.5) { cat = 'Underweight'; color = '#2563eb'; bg = '#eff6ff'; }
+  else if (bmi < 25) { cat = 'Normal weight'; color = '#16a34a'; bg = '#f0fdf4'; }
+  else if (bmi < 30) { cat = 'Overweight'; color = '#d97706'; bg = '#fffbeb'; }
+  else               { cat = 'Obese'; color = '#dc2626'; bg = '#fef2f2'; }
+
+  const re = document.getElementById('bmi-result');
+  if (!re) return;
+  re.classList.add('show');
+  re.querySelector('.result-value').textContent = bmi;
+  re.querySelector('.result-sub').textContent = cat;
+
+  const catEl = re.querySelector('.bmi-category');
+  catEl.textContent = cat;
+  catEl.style.background = bg;
+  catEl.style.color = color;
+}
+
+function resetBMI() {
+  ['bmi-weight','bmi-height'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  const re = document.getElementById('bmi-result');
+  if (re) re.classList.remove('show');
+}
+
+// ── EMI Calculator ────────────────────────────────────────
+function calcEMI() {
+  const P = parseFloat(document.getElementById('emi-loan')?.value);
+  const annualR = parseFloat(document.getElementById('emi-rate')?.value);
+  const years = parseFloat(document.getElementById('emi-tenure')?.value);
+  if (!P || !annualR || !years) { alert('Please fill all fields.'); return; }
+
+  const r = annualR / 12 / 100;
+  const n = years * 12;
+  const emi = (P * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+  const total = emi * n;
+  const interest = total - P;
+
+  const fmt = v => '₹' + v.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+
+  const re = document.getElementById('emi-result');
+  if (!re) return;
+  re.classList.add('show');
+  re.querySelector('.result-value').textContent = fmt(emi) + '/mo';
+  re.querySelector('#emi-total').textContent = fmt(total);
+  re.querySelector('#emi-interest').textContent = fmt(interest);
+  re.querySelector('#emi-principal').textContent = fmt(P);
+
+  // Pie chart
+  const pct = Math.round((P / total) * 100);
+  const iPct = 100 - pct;
+  const r2 = 60, cx = 70, cy = 70;
+  const toRad = d => d * Math.PI / 180;
+  const slice = (start, end, col) => {
+    const s = toRad(start - 90), e = toRad(end - 90);
+    const x1 = cx + r2*Math.cos(s), y1 = cy + r2*Math.sin(s);
+    const x2 = cx + r2*Math.cos(e), y2 = cy + r2*Math.sin(e);
+    const lg = end - start > 180 ? 1 : 0;
+    return `<path d="M${cx},${cy} L${x1},${y1} A${r2},${r2},0,${lg},1,${x2},${y2}Z" fill="${col}"/>`;
+  };
+  const svg = document.getElementById('emi-pie');
+  if (svg) {
+    const p1End = pct * 3.6;
+    svg.innerHTML = slice(0, p1End, '#2563eb') + slice(p1End, 360, '#f59e0b');
+  }
+  re.querySelector('#emi-pct-p').textContent = pct + '%';
+  re.querySelector('#emi-pct-i').textContent = iPct + '%';
+}
+
+function resetEMI() {
+  ['emi-loan','emi-rate','emi-tenure'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+  const re = document.getElementById('emi-result');
+  if (re) re.classList.remove('show');
+}
+
+// ── Calorie Calculator ────────────────────────────────────
+function calcCalorie() {
+  const age = parseFloat(document.getElementById('cal-age')?.value);
+  const w   = parseFloat(document.getElementById('cal-weight')?.value);
+  const h   = parseFloat(document.getElementById('cal-height')?.value);
+  const gender = document.querySelector('input[name="gender"]:checked')?.value;
+  const act  = parseFloat(document.getElementById('cal-activity')?.value);
+  if (!age || !w || !h || !gender || !act) { alert('Please fill all fields.'); return; }
+
+  let bmr;
+  if (gender === 'male')
+    bmr = 88.362 + (13.397 * w) + (4.799 * h) - (5.677 * age);
+  else
+    bmr = 447.593 + (9.247 * w) + (3.098 * h) - (4.330 * age);
+
+  const tdee = Math.round(bmr * act);
+
+  const re = document.getElementById('cal-result');
+  if (!re) return;
+  re.classList.add('show');
+  re.querySelector('.result-value').textContent = tdee + ' kcal';
+  re.querySelector('#cal-bmr').textContent = Math.round(bmr) + ' kcal';
+  re.querySelector('#cal-loss').textContent = (tdee - 500) + ' kcal/day';
+  re.querySelector('#cal-gain').textContent = (tdee + 500) + ' kcal/day';
+}
+
+function resetCalorie() {
+  ['cal-age','cal-weight','cal-height'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  const re = document.getElementById('cal-result');
+  if (re) re.classList.remove('show');
+}
+
+// ── Percentage Calculator ─────────────────────────────────
+function calcPct(mode) {
+  let result, label;
+  if (mode === 1) {
+    const p = parseFloat(document.getElementById('pct1-p')?.value);
+    const n = parseFloat(document.getElementById('pct1-n')?.value);
+    result = ((p / 100) * n).toFixed(2);
+    label = `${p}% of ${n}`;
+  } else if (mode === 2) {
+    const a = parseFloat(document.getElementById('pct2-a')?.value);
+    const b = parseFloat(document.getElementById('pct2-b')?.value);
+    result = ((a / b) * 100).toFixed(2) + '%';
+    label = `${a} is what % of ${b}`;
+  } else {
+    const a = parseFloat(document.getElementById('pct3-a')?.value);
+    const b = parseFloat(document.getElementById('pct3-b')?.value);
+    result = (((b - a) / a) * 100).toFixed(2) + '%';
+    label = `% change from ${a} to ${b}`;
+  }
+
+  const re = document.getElementById('pct-result');
+  if (!re) return;
+  re.classList.add('show');
+  re.querySelector('.result-value').textContent = result;
+  re.querySelector('.result-sub').textContent = label;
+}
+
+function resetPct() {
+  document.querySelectorAll('.pct-input').forEach(el => el.value = '');
+  const re = document.getElementById('pct-result');
+  if (re) re.classList.remove('show');
+}
+
+// ── Age Calculator ────────────────────────────────────────
+function calcAge() {
+  const dob = document.getElementById('age-dob')?.value;
+  if (!dob) { alert('Please enter your date of birth.'); return; }
+  const birth = new Date(dob);
+  const now = new Date();
+
+  let years = now.getFullYear() - birth.getFullYear();
+  let months = now.getMonth() - birth.getMonth();
+  let days = now.getDate() - birth.getDate();
+
+  if (days < 0) { months--; days += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
+  if (months < 0) { years--; months += 12; }
+
+  const totalDays = Math.floor((now - birth) / 864e5);
+  const totalWeeks = Math.floor(totalDays / 7);
+  const totalMonths = years * 12 + months;
+  const nextBday = new Date(now.getFullYear(), birth.getMonth(), birth.getDate());
+  if (nextBday < now) nextBday.setFullYear(nextBday.getFullYear() + 1);
+  const daysToNext = Math.ceil((nextBday - now) / 864e5);
+
+  const re = document.getElementById('age-result');
+  if (!re) return;
+  re.classList.add('show');
+  re.querySelector('.result-value').textContent = `${years}y ${months}m ${days}d`;
+  re.querySelector('#age-days').textContent = totalDays.toLocaleString();
+  re.querySelector('#age-weeks').textContent = totalWeeks.toLocaleString();
+  re.querySelector('#age-months').textContent = totalMonths.toLocaleString();
+  re.querySelector('#age-next').textContent = daysToNext + ' days';
+}
+
+function resetAge() {
+  const el = document.getElementById('age-dob'); if(el) el.value='';
+  const re = document.getElementById('age-result');
+  if (re) re.classList.remove('show');
+}
+
+// ── Radio selector helper ─────────────────────────────────
+function selectRadio(name, val) {
+  document.querySelectorAll(`.radio-option[data-group="${name}"]`).forEach(opt => {
+    opt.classList.toggle('selected', opt.dataset.value === val);
+  });
+  const hidden = document.querySelector(`input[name="${name}"]`);
+  if (hidden) hidden.value = val;
+}
+
+// ── DOMContentLoaded ──────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+
+  applyTheme(localStorage.getItem(THEME_KEY) || 'light');
+
+  initSearch('hero-search', 'hero-results');
+  initSearch('nav-search-inp', 'nav-results');
+
+  observeCards();
+
+  // Sticky nav shadow
+  const nav = document.querySelector('.navbar');
+
+window.addEventListener('scroll', () => {
+    nav?.classList.toggle('scrolled', window.scrollY > 10);
+});
+
+});   <!-- ADD THIS -->
+
+<footer>
+  <div class="footer-grid">
+
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms & Conditions</a></li>
+        <li><a href="disclaimer.html">Disclaimer</a></li>
+      </ul>
+    </div>
+
+  </div>
+</footer>
+
+</script>
+</body>
+</html>

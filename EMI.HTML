@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EMI Calculator</title>
+
+<style>
+
+body{
+    margin:0;
+    padding:0;
+    font-family:Arial, sans-serif;
+    background:#f4f6fb;
+}
+
+.container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.card{
+    width:400px;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+h1{
+    text-align:center;
+    color:#2563eb;
+    margin-bottom:25px;
+}
+
+.input-group{
+    margin-bottom:18px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:16px;
+    box-sizing:border-box;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.result{
+    margin-top:25px;
+    padding:20px;
+    background:#eff6ff;
+    border-radius:10px;
+    display:none;
+}
+
+.result h2{
+    margin-top:0;
+    color:#2563eb;
+}
+
+.result p{
+    font-size:17px;
+    margin:10px 0;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1>💰 EMI Calculator</h1>
+
+        <div class="input-group">
+            <label>Loan Amount (₹)</label>
+            <input type="number" id="loan" placeholder="Enter loan amount">
+        </div>
+
+        <div class="input-group">
+            <label>Interest Rate (%)</label>
+            <input type="number" id="rate" placeholder="Enter interest rate">
+        </div>
+
+        <div class="input-group">
+            <label>Loan Tenure (Years)</label>
+            <input type="number" id="years" placeholder="Enter years">
+        </div>
+
+        <button onclick="calculateEMI()">
+            Calculate EMI
+        </button>
+
+        <div class="result" id="result">
+
+            <h2>EMI Result</h2>
+
+            <p>
+                <strong>Monthly EMI:</strong>
+                <span id="emi"></span>
+            </p>
+
+            <p>
+                <strong>Total Payment:</strong>
+                <span id="total"></span>
+            </p>
+
+            <p>
+                <strong>Total Interest:</strong>
+                <span id="interest"></span>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function calculateEMI(){
+
+    let P =
+        parseFloat(document.getElementById("loan").value);
+
+    let annualRate =
+        parseFloat(document.getElementById("rate").value);
+
+    let years =
+        parseFloat(document.getElementById("years").value);
+
+    if(!P || !annualRate || !years){
+
+        alert("Please enter all values");
+
+        return;
+    }
+
+    let r = annualRate / 12 / 100;
+
+    let n = years * 12;
+
+    let emi =
+        (P * r * Math.pow(1 + r, n)) /
+        (Math.pow(1 + r, n) - 1);
+
+    let total = emi * n;
+
+    let interest = total - P;
+
+    document.getElementById("emi").innerHTML =
+        "₹ " + emi.toFixed(2);
+
+    document.getElementById("total").innerHTML =
+        "₹ " + total.toFixed(2);
+
+    document.getElementById("interest").innerHTML =
+        "₹ " + interest.toFixed(2);
+
+    document.getElementById("result").style.display =
+        "block";
+}
+
+</script>
+
+</body>
+</html>

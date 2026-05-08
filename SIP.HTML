@@ -1,0 +1,156 @@
+<!-- sip.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIP Calculator</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#f4f6fb;
+}
+
+.container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.card{
+    width:400px;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+h1{
+    text-align:center;
+    color:#2563eb;
+}
+
+.input-group{
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    box-sizing:border-box;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.result{
+    margin-top:20px;
+    background:#eff6ff;
+    padding:20px;
+    border-radius:10px;
+    display:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<h1>📈 SIP Calculator</h1>
+
+<div class="input-group">
+<label>Monthly Investment</label>
+<input type="number" id="amount">
+</div>
+
+<div class="input-group">
+<label>Interest Rate (%)</label>
+<input type="number" id="rate">
+</div>
+
+<div class="input-group">
+<label>Years</label>
+<input type="number" id="years">
+</div>
+
+<button onclick="calculateSIP()">
+Calculate SIP
+</button>
+
+<div class="result" id="result">
+
+<h2 id="maturity"></h2>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function calculateSIP(){
+
+    let P =
+        parseFloat(document.getElementById("amount").value);
+
+    let annualRate =
+        parseFloat(document.getElementById("rate").value);
+
+    let years =
+        parseFloat(document.getElementById("years").value);
+
+    if(!P || !annualRate || !years){
+
+        alert("Please enter all values");
+
+        return;
+    }
+
+    let r = annualRate / 12 / 100;
+
+    let n = years * 12;
+
+    let maturity =
+        P *
+        (((Math.pow(1+r,n))-1)/r) *
+        (1+r);
+
+    document.getElementById("maturity").innerHTML =
+        "Maturity Amount: ₹ " +
+        maturity.toFixed(2);
+
+    document.getElementById("result").style.display =
+        "block";
+}
+
+</script>
+
+</body>
+</html>
