@@ -1,0 +1,76 @@
+<!-- idealweight.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Ideal Weight Calculator</title>
+
+<style>
+body{
+font-family:Poppins;
+background:#f5f7fb;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.box{
+background:white;
+padding:30px;
+border-radius:20px;
+width:350px;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+input,button{
+width:100%;
+padding:14px;
+margin-top:15px;
+border-radius:10px;
+border:1px solid #ddd;
+}
+
+button{
+background:#2979ff;
+color:white;
+border:none;
+}
+
+h1{
+text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>Ideal Weight</h1>
+
+<input type="number" id="height" placeholder="Height in cm">
+
+<button onclick="calc()">Calculate</button>
+
+<h2 id="result"></h2>
+
+</div>
+
+<script>
+
+function calc(){
+
+let h=document.getElementById("height").value;
+
+let ideal=(h-100)*0.9;
+
+document.getElementById("result").innerHTML=
+"Ideal Weight: "+ideal.toFixed(1)+" kg";
+
+}
+
+</script>
+
+</body>
+</html>

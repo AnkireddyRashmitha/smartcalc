@@ -1,0 +1,107 @@
+<!-- datedifference.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Date Difference Calculator</title>
+
+<style>
+
+body{
+font-family:Poppins,sans-serif;
+background:#f5f7fb;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.box{
+background:white;
+padding:30px;
+border-radius:20px;
+width:350px;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+}
+
+input,button{
+width:100%;
+padding:14px;
+margin-top:15px;
+border-radius:10px;
+border:1px solid #ddd;
+font-size:16px;
+}
+
+button{
+background:#2979ff;
+color:white;
+border:none;
+cursor:pointer;
+font-weight:600;
+}
+
+button:hover{
+background:#005ce6;
+}
+
+#result{
+margin-top:20px;
+font-size:20px;
+font-weight:600;
+text-align:center;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>Date Difference</h1>
+
+<label>Start Date</label>
+<input type="date" id="start">
+
+<label>End Date</label>
+<input type="date" id="end">
+
+<button onclick="calculate()">
+Calculate Difference
+</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+function calculate(){
+
+let startDate=new Date(document.getElementById("start").value);
+
+let endDate=new Date(document.getElementById("end").value);
+
+let diff=endDate-startDate;
+
+let days=Math.floor(diff/(1000*60*60*24));
+
+document.getElementById("result").innerHTML=
+days+" Days Difference";
+
+}
+
+</script>
+
+</body>
+</html>
