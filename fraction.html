@@ -1,0 +1,73 @@
+<!-- fraction.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fraction Calculator</title>
+
+<style>
+
+body{
+font-family:Poppins;
+background:#f5f7fb;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.box{
+background:white;
+padding:30px;
+border-radius:20px;
+width:350px;
+}
+
+input,button{
+width:100%;
+padding:14px;
+margin-top:15px;
+}
+
+button{
+background:#2979ff;
+color:white;
+border:none;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>Fraction Calculator</h1>
+
+<input type="number" id="a" placeholder="First Number">
+
+<input type="number" id="b" placeholder="Second Number">
+
+<button onclick="calc()">Add</button>
+
+<h2 id="result"></h2>
+
+</div>
+
+<script>
+
+function calc(){
+
+let a=parseFloat(document.getElementById("a").value);
+
+let b=parseFloat(document.getElementById("b").value);
+
+document.getElementById("result").innerHTML=
+"Result: "+(a+b);
+
+}
+
+</script>
+
+</body>
+</html>
